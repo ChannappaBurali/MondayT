@@ -1,0 +1,75 @@
+<app-layout>
+
+<div class="card">
+<div class="container">
+  <div class="row">
+        <div class="logout"><button type="button"  class="btn btn-link" (click)="logout()">Logout</button> </div>
+    <div class="col-md-6 offset-md-3">
+            
+        <h3>Add/Edit Product</h3>
+     
+        <form name="addeditproduct" (ngSubmit)="f.form.valid && !isProductNameExists  && onSubmit()" #f="ngForm" novalidate>
+            <div class="form-group">
+              <label for="productname" > Product Name  </label>
+              <input type="text"  class="form-control" (change)="CheckProductName(product.ProductName, product.ProductID)"
+                    name="productName" [(ngModel)]="product.ProductName"
+                   #ProductName="ngModel" [ngClass]="{'is-invalid': f.submitted && ProductName.invalid}" required />
+               <div *ngIf="f.submitted && ProductName.invalid" class="invalid">
+                  <div *ngIf="ProductName.errors.required">Product Name is required</div>
+               </div>
+               <div *ngIf="isProductNameExists" class="invalid">
+                <div>Product name is already exists</div>
+             </div>
+            </div>
+
+            <div class="form-group">
+                <label for="supplier"> Supplier</label>
+                <select  class="form-control"
+                  [ngClass]="{'is-invalid': f.submitted && supplier.invalid}" name="supplier" [(ngModel)]="product.SupplierID"  #supplier="ngModel" required>
+                      <option value="">--Select Supplier--</option>
+                      <option *ngFor="let supplier of supplierList" value={{supplier.SupplierID}}>
+                          {{supplier.SuppierName}}
+                      </option>
+                  </select>
+                  <div *ngIf="f.submitted && supplier.invalid" class="invalid">
+                          <div *ngIf="supplier.errors.required">Supplier Name is required</div>
+                  </div>
+            </div>
+            <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                      <input type="number" class="form-control" name="quantity" #Quantity="ngModel"
+                      [ngClass]="{'is-invalid': f.submitted && Quantity.invalid}" [(ngModel)]="product.Quantity" required />
+                         <div *ngIf="f.submitted && Quantity?.invalid" class="invalid">
+                             <div *ngIf="Quantity.errors.required">Quantity is required</div>
+                        </div>
+            </div>
+               
+            <div class="form-group">
+                <label for="unitprice">Unit Price</label>
+                    <input type="number" class="form-control" name="unitprice" #UnitPrice="ngModel"
+                        [ngClass]="{'is-invalid': f.submitted && UnitPrice.invalid}" [(ngModel)]="product.UnitPrice" required />
+                      <div *ngIf="f.submitted && UnitPrice?.invalid" class="invalid">
+                            <div *ngIf="UnitPrice.errors.required">Unit Price is required</div>
+                      </div>
+            </div>
+               
+            <div class="form-group">
+                  <label for="totalcost">Total Cost</label>
+                        <input type="text" class="form-control" disabled name="totalcost" #TotalCost="ngModel"
+                        [ngClass]="{'is-invalid': f.submitted && TotalCost.invalid}" [(ngModel)]="product.Quantity * product.UnitPrice" />
+            </div>
+            <input type="hidden" [(ngModel)]="product.ProductID" name="productID"/>
+           
+            <div class="form-group">
+                <button  class="btn btn-success pull-left" (click)="backToList($event)"><-Back to list</button>&nbsp;&nbsp;
+                <button class="btn btn-primary">Save</button>&nbsp;&nbsp;
+                <button type="button"  class="btn btn-secondary" (click)="clearForm(f)">Clear</button> &nbsp;&nbsp;
+                
+            </div>
+         
+        </form>
+    </div>
+  </div>
+</div>
+</div>
+</app-layout>

@@ -1,0 +1,38 @@
+<app-layout>
+  <div class="container">    
+    <div class="row">       
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <h5 class="card-title text-center">Welcome to Inventory Management</h5>
+        <div class="card card-signin my-5">            
+          <div class="card-body">
+            <h5 class="card-title text-center">User Login</h5>
+            <form class="form-signin" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                  <label for="inputEmail">User Name</label>
+                <input type="text" id="inputEmail" name="inputEmail" [(ngModel)]="user.UserName" class="form-control"
+                  placeholder="User Name" #username="ngModel" required />
+                  <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>             
+              </div>
+
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                  <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" name="inputPassword" class="form-control" [(ngModel)]="user.Password"
+                  placeholder="Password" #password="ngModel" required />
+                  <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>             
+              </div>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" (click)='logIn()' type="submit">Login</button>
+              <div class="form-group">
+                  <div>
+                      <span style="color: #a94442">
+                          {{validationMessage}}
+                      </span>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</app-layout>

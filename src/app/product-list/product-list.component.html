@@ -1,0 +1,55 @@
+<app-layout>
+  <!-- Editable table -->  
+
+  <div class="card">      
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Inventory List</h3>
+    
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2">            
+           <button (click)="addProduct($event)" class="btn btn-link ">Add Product</button>&nbsp;&nbsp;
+            <button  (click)="logout()" class="btn btn-link float-right">Logout</button>
+        </span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+            <th class="text-center">Product Name</th>
+            <th class="text-center">Supplier</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Unit Price</th>
+            <th class="text-center">Total Cost</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let product of products; let id = index">
+            <td>{{product.ProductName}}</td>            
+            <td>{{product.SupplierName}}</td>
+            <td>{{product.Quantity | thousandSeperator}}</td>
+            <td>{{product.UnitPrice | currency:'USD':true:'1.2-2'}}</td>
+            <td>{{product.TotalCost | currency:'USD':true:'1.2-2'}}</td>
+            <td>
+              <!-- <span class="table-remove"> -->
+                <a class="a-link" >
+                  <!-- <img aria-placeholder="edit" src="../../assets/icons8-edit.svg" width="20" height="20" (click)="edit(product.ProductId)" alt="Edit"> -->
+                  <button class="btn btn-sm btn-primary" (click)="edit(product.ProductID)" >Edit</button>
+                </a>
+
+               
+              <!-- </span> -->
+            </td>
+            <td>
+                <a class="a-link" >
+                    <!-- <img aria-placeholder="edit" src="../../assets/icons8-edit.svg" width="20" height="20" (click)="edit(product.ProductId)" alt="Edit"> -->
+                    <button class="btn btn-sm btn-danger" (click)="delete(product.ProductID)" >Delete</button>
+                  </a>
+                <!-- <a class="a-link padding-left-12" >
+                    <img aria-placeholder="delete" src="../../assets/icons8-cancel.svg" width="20" height="20" (click)="remove(id)" alt="Delete">
+                  </a> -->
+            </td>
+          </tr>
+        </table>
+        <!-- <p><a [routerLink]="['/login']">Logout</a></p> -->
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+</app-layout>
